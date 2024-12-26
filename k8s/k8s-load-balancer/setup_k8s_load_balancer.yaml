@@ -1,0 +1,69 @@
+---
+- name: Configure Load Balancer 1 & 2
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update APT package cache
+      apt:
+        update_cache: yes
+
+    - name: Disable UFW
+      ufw:
+        state: disabled
+
+    - name: Install HAProxy and Keepalived
+      apt:
+        name:
+          - haproxy
+          - keepalived
+        state: present
+      become: true
+
+    - name: Configure HAProxy
+      template:
+        src: templates/haproxy.cfg.j2
+        dest: /etc/haproxy/haproxy.cfg
+        owner: root
+        group: root
+        mode: '0644'
+
+- name: Configure Load Balancer 1
+  hosts: "{{ load_balancer_1_host }}"
+  become: true
+
+  tasks:
+    - name: Configure keepalive LB1
+      template:
+        src: templates/keepalived.conf.lb1.j2
+        dest: /etc/keepalived/keepalived.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+- name: Configure Load Balancer 2
+  hosts: "{{ load_balancer_2_host }}"
+  become: true
+
+  tasks:
+    - name: Configure keepalive LB2
+      template:
+        src: templates/keepalived.conf.lb2.j2
+        dest: /etc/keepalived/keepalived.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+- name: Restart HAProxy and Keepalived
+  hosts: all
+  become: true
+  tasks:
+    - name: Restart HAProxy
+      service:
+        name: haproxy
+        state: restarted
+
+    - name: Restart Keepalived
+      service:
+        name: keepalived
+        state: restarted

@@ -1,0 +1,74 @@
+---
+- name: Configure Primary k8s master
+  hosts: "{{ target_host }}"
+  become: true
+  become_user: root
+  tasks:
+
+    - name: Update APT package cache
+      apt:
+        update_cache: yes
+
+    - name: Disable UFW
+      ufw:
+        state: disabled
+    
+    - name: Run K3s server installation & cluster init
+      shell: |
+        curl -sfL https://get.k3s.io | K3S_TOKEN=kubernetes@demo sh -s - server \
+        --cluster-init \
+        --disable traefik \
+        --disable servicelb \
+        --disable local-storage \
+        --docker \
+        --tls-san={{ load_balancer_host }}
+      register: k3s_install
+      failed_when: k3s_install.rc != 0
+
+    - name: Check K3s server status
+      command: systemctl status k3s
+      register: k3s_status
+      changed_when: false
+
+    - name: Create .kube directory
+      file:
+        path: "/root/.kube"
+        state: directory
+        mode: '0755'
+      become_user: root
+
+    - name: Copy kubeconfig
+      shell: cp /etc/rancher/k3s/k3s.yaml /root/.kube/config.yaml
+
+    - name: Change ownership of the kubeconfig file
+      file:
+        path: /root/.kube/config.yaml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
+    - name: Create K3s configuration file
+      copy:
+        dest: /etc/rancher/k3s/config.yaml
+        content: |
+          token: kubernetes@demo
+          tls-san: {{ load_balancer_host }}
+        owner: root
+        group: root
+        mode: '0644' 
+
+    - name: Add KUBECONFIG to shell profile
+      lineinfile:
+        path: "/root/.bashrc"
+        line: 'export KUBECONFIG=/root/.kube/config.yaml'
+        state: present
+      become_user: root
+
+    - name: Reload .bashrc to apply KUBECONFIG
+      shell: ". /root/.bashrc"
+      args:
+        executable: /bin/bash
+
+
+
+

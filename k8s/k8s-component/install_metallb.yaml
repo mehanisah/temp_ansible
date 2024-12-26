@@ -1,0 +1,56 @@
+---
+- name: Install MetalLB with Helm
+  hosts: "{{ target_host }}"
+  become: true
+  become_user: root
+  tasks:
+
+    - name: Export KUBECONFIG for Ansible session
+      shell: export KUBECONFIG=~/.kube/config/k3s.yaml
+      args:
+        executable: /bin/bash
+
+    - name: Add MetalLB Helm repository
+      shell: |
+        helm repo add metallb https://metallb.github.io/metallb
+      args:
+        executable: /bin/bash
+
+    - name: Pull MetalLB chart
+      shell: |
+        helm pull metallb/metallb --version 0.13.12
+      args:
+        chdir: "/root"
+        creates: "/root/metallb-0.13.12.tgz"
+
+    - name: Extract MetalLB chart
+      shell: |
+        tar -xf metallb-0.13.12.tgz
+      args:
+        chdir: "/root"
+        creates: "/root/metallb"
+
+    - name: Configure ip pool
+      template:
+        src: templates/ipaddresspool.yaml.j2
+        dest: /root/metallb
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Configure L2 advertisement
+      template:
+        src: templates/L2advertisement.yaml.j2
+        dest: /root/metallb
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Install metalLB
+      shell: |
+        helm install metallb -f values.yaml . -n metallb-system --debug --create-namespace
+      args:
+        chdir: "/root/metallb"
+      environment:
+        KUBECONFIG: "/root/.kube/config.yaml"
+
