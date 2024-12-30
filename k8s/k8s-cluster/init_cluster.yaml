@@ -15,7 +15,7 @@
     
     - name: Run K3s server installation & cluster init
       shell: |
-        curl -sfL https://get.k3s.io | K3S_TOKEN=kubernetes@demo sh -s - server \
+        curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.29.11+k3s1 K3S_TOKEN=kubernetes@demo sh -s - server \
         --cluster-init \
         --disable traefik \
         --disable servicelb \
