@@ -1,11 +1,16 @@
+global_defs {
+  enable_script_security
+  script_user root
+}
+
 vrrp_script chk_haproxy {
     script 'killall -0 haproxy' # faster than pidof
     interval 2
 }
 
 vrrp_instance haproxy-vip {
-    interface eth0
-    state BACKUP #LB2
+    interface eth1
+    state BACKUP
     priority 100
 
     virtual_router_id 51
