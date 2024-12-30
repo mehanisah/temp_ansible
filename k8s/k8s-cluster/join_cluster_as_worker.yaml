@@ -18,7 +18,7 @@
     - name: Run K3s worker installation
       shell: |
         curl -sfL https://get.k3s.io | K3S_TOKEN=kubernetes@demo sh -s - agent \
-        --server https://{{ control_plane_init_host }}:6443
+        --server https://{{ load_balancer_host }}:6443
       register: k3s_install
       failed_when: k3s_install.rc != 0
 
