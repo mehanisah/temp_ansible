@@ -9,7 +9,7 @@ vrrp_script chk_haproxy {
 }
 
 vrrp_instance haproxy-vip {
-    interface eth1
+    interface eth0  # Please confirm your network setting use the correct interface
     state MASTER
     priority 200
 
