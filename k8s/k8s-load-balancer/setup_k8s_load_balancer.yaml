@@ -1,6 +1,6 @@
 ---
 - name: Configure Load Balancer 1 & 2
-  hosts: all
+  hosts: load_balancer
   become: true
 
   tasks:
