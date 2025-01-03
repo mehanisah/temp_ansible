@@ -55,7 +55,7 @@
         mode: '0644'
 
 - name: Restart HAProxy and Keepalived
-  hosts: all
+  hosts: load_balancer
   become: true
   tasks:
     - name: Restart HAProxy
