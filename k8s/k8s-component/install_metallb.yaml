@@ -48,7 +48,7 @@
 
     - name: Install metalLB
       shell: |
-        helm install metallb -f values.yaml . -n metallb-system --debug --create-namespace
+        helm install metallb -f values.yaml . -n "{{ namespace }}" --create-namespace
       args:
         chdir: "/root/metallb"
       environment:
