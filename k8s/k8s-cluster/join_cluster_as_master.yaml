@@ -5,6 +5,12 @@
   become_user: root
 
   tasks:
+  
+    - name: Define K3s installation parameters
+      set_fact:
+        k3s_version: "v1.31.4+k3s1"
+        k3s_token: "kubernetes@demo"
+        
     - name: Update APT package cache
       apt:
         update_cache: yes
@@ -15,12 +21,12 @@
 
     - name: Run K3s server installation
       shell: |
-        curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.31.4+k3s1 K3S_TOKEN=kubernetes@demo sh -s - server \
-        --server https://{{ control_plane_init_host }}:6443 \
-        --docker \
-        --tls-san={{ load_balancer_host }}
-      register: k3s_install
-      failed_when: k3s_install.rc != 0
+        if ! command -v k3s >/dev/null; then
+          curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.31.4+k3s1 K3S_TOKEN=kubernetes@demo sh -s - server \
+          --server https://{{ control_plane_init_host }}:6443 \
+          --docker \
+          --tls-san={{ load_balancer_host }};
+        fi
 
     - name: Check K3s server status
       command: systemctl status k3s
@@ -60,8 +66,3 @@
         owner: root
         group: root
         mode: '0644' 
-
-    - name: Check K3s server status
-      command: systemctl status k3s
-      register: k3s_server_status
-      changed_when: false
