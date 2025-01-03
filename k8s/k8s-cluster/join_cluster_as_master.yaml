@@ -60,3 +60,8 @@
         owner: root
         group: root
         mode: '0644' 
+
+    - name: Check K3s server status
+      command: systemctl status k3s
+      register: k3s_server_status
+      changed_when: false
