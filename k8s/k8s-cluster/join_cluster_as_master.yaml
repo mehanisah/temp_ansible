@@ -28,11 +28,6 @@
           --tls-san={{ load_balancer_host }};
         fi
 
-    - name: Check K3s server status
-      command: systemctl status k3s
-      register: k3s_status
-      changed_when: false
-
     - name: Create .kube directory for root
       file:
         path: "/root/.kube"
