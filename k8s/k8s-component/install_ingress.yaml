@@ -40,7 +40,7 @@
 
     - name: Install Nginx Ingress
       shell: |
-        helm install nginx-ingress -f values.yaml . -n ingress --debug --create-namespace
+        helm install nginx-ingress -f values.yaml . -n "{{ namespace }}" --create-namespace
       args:
         chdir: "/root/nginx-ingress"
       environment:
