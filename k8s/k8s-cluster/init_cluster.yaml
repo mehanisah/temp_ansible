@@ -29,19 +29,6 @@
           --docker \
           --tls-san={{ load_balancer_host }};
         fi
-      args:
-        warn: false
-      register: k3s_install_result
-      changed_when: "'installed' in k3s_install_result.stdout"
-
-    - name: Display K3s installation output
-      debug:
-        var: k3s_install_result.stdout
-
-    - name: Check K3s server status
-      command: systemctl status k3s
-      register: k3s_status
-      changed_when: false
 
     - name: Create .kube directory
       file:
