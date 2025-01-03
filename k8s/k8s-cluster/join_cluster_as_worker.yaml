@@ -23,9 +23,10 @@
     
     - name: Run K3s worker installation
       shell: |
-      if ! command -v k3s-agent >/dev/null; then
-        curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION={{ k3s_version }} K3S_TOKEN={{ k3s_token }} sh -s - agent --server https://{{ load_balancer_host }}:6443;
-      fi
+        if ! command -v k3s-agent >/dev/null; then
+          curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION={{ k3s_version }} K3S_TOKEN={{ k3s_token }} sh -s - agent \
+          --server https://{{ load_balancer_host }}:6443;
+        fi
 
     - name: Check K3s agent status
       command: systemctl is-active k3s-agent
