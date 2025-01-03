@@ -1,8 +1,8 @@
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: k8s-pool-1
-  namespace: metallb-system
+  name: {{ pool_name }}
+  namespace: {{ namespace }}
 spec:
   addresses:
-  - 43.74.122.210 - 43.74.122.210
+  - {{ ip_range_start }}-{{ ip_range_end }}
