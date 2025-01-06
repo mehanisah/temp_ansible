@@ -54,3 +54,14 @@
       environment:
         KUBECONFIG: "/root/.kube/config.yaml"
 
+    - name: Apply IPAddressPool configuration
+      shell: |
+        kubectl apply -f /root/metallb/ipaddresspool.yaml
+      environment:
+        KUBECONFIG: "/root/.kube/config.yaml"
+    
+    - name: Apply L2Advertisement configuration
+      shell: |
+        kubectl apply -f /root/metallb/L2advertisement.yaml
+      environment:
+        KUBECONFIG: "/root/.kube/config.yaml"
