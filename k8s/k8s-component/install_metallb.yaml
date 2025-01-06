@@ -46,12 +46,6 @@
         group: root
         mode: '0644'
 
-    - name: Wait for MetalLB controller to be ready
-      shell: |
-        kubectl rollout status deployment/controller -n metallb-system
-      environment:
-        KUBECONFIG: "/root/.kube/config.yaml"
-    
     - name: Apply IPAddressPool configuration
       shell: |
         kubectl apply -f /root/metallb/ipaddresspool.yaml
