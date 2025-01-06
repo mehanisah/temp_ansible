@@ -33,7 +33,7 @@
     - name: Configure ip pool
       template:
         src: templates/ipaddresspool.yaml.j2
-        dest: /root/metallb
+        dest: /root/metallb/ipaddresspool.yaml
         owner: root
         group: root
         mode: '0644'
@@ -41,19 +41,17 @@
     - name: Configure L2 advertisement
       template:
         src: templates/L2advertisement.yaml.j2
-        dest: /root/metallb
+        dest: /root/metallb/L2advertisement.yaml
         owner: root
         group: root
         mode: '0644'
 
-    - name: Install metalLB
+    - name: Wait for MetalLB controller to be ready
       shell: |
-        helm install metallb -f values.yaml . -n "{{ namespace }}" --create-namespace
-      args:
-        chdir: "/root/metallb"
+        kubectl rollout status deployment/controller -n metallb-system
       environment:
         KUBECONFIG: "/root/.kube/config.yaml"
-
+    
     - name: Apply IPAddressPool configuration
       shell: |
         kubectl apply -f /root/metallb/ipaddresspool.yaml
