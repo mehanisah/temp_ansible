@@ -14,7 +14,7 @@
 
     - name: Create NFS mount directory
       file:
-        path: {{ client_mount_path }}
+        path: "{{ client_mount_path }}"
         state: directory
         mode: '0755'
 
