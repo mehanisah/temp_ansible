@@ -5,9 +5,6 @@
   become_user: root
   tasks:
 
-    - name: Update Helm repositories
-      shell: helm repo update
-
     - name: Add MetalLB Helm repository
       shell: |
         helm repo add metallb https://metallb.github.io/metallb
