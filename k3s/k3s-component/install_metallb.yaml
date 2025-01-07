@@ -5,6 +5,9 @@
   become_user: root
   tasks:
 
+    - name: Update Helm repositories
+      shell: helm repo update
+
     - name: Add MetalLB Helm repository
       shell: |
         helm repo add metallb https://metallb.github.io/metallb
@@ -40,6 +43,10 @@
         owner: root
         group: root
         mode: '0644'
+
+    - name: Install metallb
+      shell: |
+        helm install metallb -f values.yaml . -n {{ namespace }} --create-namespace
 
     - name: Apply IPAddressPool configuration
       shell: |
