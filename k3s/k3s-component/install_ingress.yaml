@@ -5,9 +5,6 @@
   become_user: root
   tasks:
 
-    - name: Update Helm repositories
-      shell: helm repo update
-
     - name: Add Nginx Ingress Helm repository
       shell: |
         helm repo add nginx-stable https://helm.nginx.com/stable
