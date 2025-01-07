@@ -5,11 +5,6 @@
   become_user: root
   tasks:
 
-    - name: Export KUBECONFIG for Ansible session
-      shell: export KUBECONFIG=~/.kube/config/k3s.yaml
-      args:
-        executable: /bin/bash
-
     - name: Add MetalLB Helm repository
       shell: |
         helm repo add metallb https://metallb.github.io/metallb
