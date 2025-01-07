@@ -21,7 +21,7 @@
     - name: Add NFS entry to /etc/fstab
       lineinfile:
         path: /etc/fstab
-        line: "{{ nfs_server_ip }}:{{ server_mount_path }} {{ client_mount_path }} nfs defaults 0 0"
+        line: "{{ nfs_server_host }}:{{ server_mount_path }} {{ client_mount_path }} nfs defaults 0 0"
         state: present
         create: yes
 
