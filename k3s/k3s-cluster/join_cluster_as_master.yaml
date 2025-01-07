@@ -39,7 +39,7 @@
         src: /etc/rancher/k3s/k3s.yaml
         dest: "/root/.kube/config.yaml"
         remote_src: yes
-        mode: '0644'
+        mode: '0600'
 
     - name: Add KUBECONFIG to root's shell profile
       lineinfile:
