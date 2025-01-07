@@ -5,10 +5,8 @@
   become_user: root
   tasks:
 
-    - name: Export KUBECONFIG for Ansible session
-      shell: export KUBECONFIG=~/.kube/config/k3s.yaml
-      args:
-        executable: /bin/bash
+    - name: Update Helm repositories
+      shell: helm repo update
 
     - name: Add Nginx Ingress Helm repository
       shell: |
