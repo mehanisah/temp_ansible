@@ -27,5 +27,3 @@
 
     - name: Mount all file systems
       command: mount -a
-      args:
-        warn: false
