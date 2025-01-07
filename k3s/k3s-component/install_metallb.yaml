@@ -44,8 +44,8 @@
     - name: Install metallb
       shell: |
         helm install metallb -f values.yaml . -n {{ namespace }} --create-namespace
-       args:
-          chdir: /root/metallb/
+      args:
+        chdir: "/root/metallb"
 
     - name: Apply IPAddressPool configuration
       shell: |
