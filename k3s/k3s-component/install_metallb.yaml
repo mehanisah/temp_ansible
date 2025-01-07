@@ -46,6 +46,8 @@
         helm install metallb -f values.yaml . -n {{ namespace }} --create-namespace
       args:
         chdir: "/root/metallb"
+      environment:
+        KUBECONFIG: "/root/.kube/config.yaml"
 
     - name: Apply IPAddressPool configuration
       shell: |
