@@ -29,6 +29,3 @@
       apt:
         name: helm
         state: present
-
-    - name: Update Helm repositories
-      shell: helm repo update
