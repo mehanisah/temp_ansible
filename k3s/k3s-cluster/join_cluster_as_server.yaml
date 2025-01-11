@@ -1,0 +1,69 @@
+---
+- name: Configure K8s master and kubeconfig as root
+  hosts: "{{ target_host }}"
+  become: true
+  become_user: root
+
+  tasks:
+  
+    - name: Define K3s installation parameters
+      set_fact:
+        k3s_version: "{{ k3s_version }}"
+        k3s_token: "{{ k3s_token }}"
+        
+    - name: Update APT package cache
+      apt:
+        update_cache: yes
+
+    - name: Disable UFW
+      ufw:
+        state: disabled
+
+    - name: Run K3s server installation
+      shell: |
+        if ! command -v k3s >/dev/null; then
+          curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION={{ k3s_version }}  K3S_TOKEN={{ k3s_token }} sh -s - server \
+          --server https://{{ control_plane_init_host }}:6443 \
+          --docker \
+          --tls-san={{ load_balancer_host }};
+        fi
+
+    - name: Create .kube directory for root
+      file:
+        path: "/root/.kube"
+        state: directory
+        mode: '0755'
+
+    - name: Copy K3s kubeconfig to /root/.kube/config.yaml
+      copy:
+        src: /etc/rancher/k3s/k3s.yaml
+        dest: "/root/.kube/config.yaml"
+        remote_src: yes
+        mode: '0600'
+
+    - name: Add KUBECONFIG to root's shell profile
+      lineinfile:
+        path: "/root/.bashrc"
+        line: 'export KUBECONFIG=/root/.kube/config.yaml'
+        state: present
+
+    - name: Reload root's shell environment
+      shell: ". /root/.bashrc"
+      args:
+        executable: /bin/bash
+
+    - name: Create K3s configuration file
+      copy:
+        dest: /etc/rancher/k3s/config.yaml
+        content: |
+          token: kubernetes@demo
+          tls-san: {{ load_balancer_host }}
+        owner: root
+        group: root
+        mode: '0644' 
+
+    - name: Check K3s server status
+      command: systemctl is-active k3s
+      register: k3s_status
+      changed_when: false
+      failed_when: k3s_status.stdout != "active"
