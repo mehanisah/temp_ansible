@@ -11,19 +11,13 @@
       args:
         executable: /bin/bash
 
-    - name: Pull MetalLB chart
-      shell: |
-        helm pull metallb/metallb --version 0.13.12
-      args:
-        chdir: "/root"
-        creates: "/root/metallb-0.13.12.tgz"
-
-    - name: Extract MetalLB chart
-      shell: |
-        tar -xf metallb-0.13.12.tgz
-      args:
-        chdir: "/root"
-        creates: "/root/metallb"
+    - name: Create folder for MetalLB config
+      file:
+        path: /root/metallb
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
 
     - name: Configure ip pool
       template:
@@ -43,9 +37,9 @@
 
     - name: Install metallb
       shell: |
-        helm install metallb -f values.yaml . -n {{ namespace }} --create-namespace
-      args:
-        chdir: "/root/metallb"
+        helm install metallb metallb/metallb \
+        --version 0.13.12 \
+        --namespace "{{ namespace }}" --create-namespace
       environment:
         KUBECONFIG: "/root/.kube/config.yaml"
 
