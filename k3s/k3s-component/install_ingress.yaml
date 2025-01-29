@@ -18,7 +18,8 @@
           --namespace "{{ namespace }}" --create-namespace \
           --set controller.ingressClass.name=nginx \
           --set controller.ingressClass.setAsDefault=true \
-          --set controller.wildcardTLS.secret="{{ wildcard_cert }}"
+          --set controller.wildcardTLS.secret="{{ wildcard_cert }}" \
+          --set controller.service.loadBalancerIP="{{ ingress_load_balancer_host }}"
       args:
         chdir: "/root/nginx-ingress"
       environment:
