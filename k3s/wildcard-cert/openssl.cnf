@@ -1,0 +1,21 @@
+[ req ]
+default_bits      = 2048
+prompt            = no
+default_md        = sha256
+distinguished_name = req_distinguished_name
+req_extensions    = v3_req
+
+[ req_distinguished_name ]
+C  = MY        # Country (e.g., US, MY, SG)
+ST = Selangor  # State/Province
+L  = Bangi     # City
+O  = Sony      # Organization Name
+OU = SCM Demo  # Organizational Unit
+CN = *.scm.demo  # Common Name (Wildcard Domain)
+
+[ v3_req ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = *.scm.demo
+
