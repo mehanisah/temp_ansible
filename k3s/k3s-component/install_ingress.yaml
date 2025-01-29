@@ -15,7 +15,7 @@
       command: >
         helm install ingress-nginx nginx-stable/nginx-ingress \
           --version 1.3.1 \
-          --namespace "{{ namespace }}" --create-namespace \
+          --namespace ingress --create-namespace \
           --set controller.ingressClass.name=nginx \
           --set controller.ingressClass.setAsDefault=true \
           --set controller.service.loadBalancerIP="{{ ingress_load_balancer_host }}"
