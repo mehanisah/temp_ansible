@@ -39,7 +39,7 @@
       shell: |
         helm install metallb metallb/metallb \
         --version 0.13.12 \
-        --namespace "{{ namespace }}" --create-namespace
+        --namespace metallb-system --create-namespace
       environment:
         KUBECONFIG: "/root/.kube/config.yaml"
 
