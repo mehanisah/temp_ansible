@@ -28,7 +28,7 @@
     - name: Prepare values.yaml nginx-ingress helm chart
       template:
         src: files/ingress_values.yaml
-        dest: /root/nginx-ingress
+        dest: /root/nginx-ingress/values.yaml
         owner: root
         group: root
         mode: '0644'
