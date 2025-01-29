@@ -17,8 +17,8 @@
           --version 1.3.1 \
           --namespace ingress --create-namespace \
           --set controller.ingressClass.name=nginx \
-          --set controller.ingressClassResource.default=true \
-          --set controller.service.loadBalancerIP="{{ ingress_load_balancer_host }}"
+          --set controller.ingressClass.setAsDefault=true \
+          --set controller.ingressClassResource.default=true
       environment:
         KUBECONFIG: "/root/.kube/config.yaml"
 
