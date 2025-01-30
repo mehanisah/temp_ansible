@@ -45,7 +45,7 @@
 
     - name: Wait for MetalLB pods to be ready
       shell: |
-        kubectl wait --for=condition=Ready pods -l app.kubernetes.io/name=metallb -n {{ namespace }} --timeout=300s
+        kubectl wait --for=condition=Ready pods -l app.kubernetes.io/name=metallb -n metallb-system --timeout=300s
       environment:
         KUBECONFIG: "/root/.kube/config.yaml"
 
