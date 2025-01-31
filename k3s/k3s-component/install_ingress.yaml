@@ -18,7 +18,8 @@
           --namespace ingress \
           --set controller.ingressClass.name=nginx \
           --set controller.ingressClass.setAsDefault=true \
-          --set controller.extraArgs.default-ssl-certificate="ingress/domain-cert"
+          --set controller.extraArgs.default-ssl-certificate="ingress/domain-cert" \
+          --set controller.service.loadBalancerIP="{{ ingress_load_balancer_host }}"
       environment:
         KUBECONFIG: "/root/.kube/config.yaml"
 
