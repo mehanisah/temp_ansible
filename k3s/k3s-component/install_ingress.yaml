@@ -11,6 +11,23 @@
       args:
         executable: /bin/bash
 
+    - name: Check if ingress namespace exists
+      kubernetes.core.k8s_info:
+        kind: Namespace
+        name: ingress
+      register: namespace_check
+      ignore_errors: yes
+
+    - name: Create the ingress namespace if it doesn't exist
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: ingress
+      when: namespace_check.failed
+
     - name: Install Nginx Ingress
       command: >
         helm install ingress-nginx nginx-stable/nginx-ingress \
