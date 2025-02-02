@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-pv
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /srv/nfs/k3s/harbor
+    server: 43.74.40.116
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "harbor-pv"
+
