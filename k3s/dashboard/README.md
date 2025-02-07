@@ -1,5 +1,5 @@
 # Add kubernetes-dashboard repository
-helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+$ helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 
 # Create namespace
 $ kubectl apply -f create-namespace-k8s-dashboard.yaml
