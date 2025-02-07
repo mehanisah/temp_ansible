@@ -1,6 +1,9 @@
 # Add kubernetes-dashboard repository
 helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 
+# Create namespace
+$ kubectl apply -f create-namespace-k8s-dashboard.yaml
+
 # Install
 $ helm install kubernetes-dashboard . --namespace kubernetes-dashboard -f values.yaml
 
@@ -11,9 +14,10 @@ $ helm upgrade kubernetes-dashboard . --namespace kubernetes-dashboard -f values
 $ helm uninstall kubernetes-dashboard --namespace kubernetes-dashboard
 
 # Create service account
-$ kubectl create -f k8s-dashboard-account.yaml
-serviceaccount/admin-user created
-clusterrolebinding.rbac.authorization.k8s.io/admin-user created
+$ kubectl create -f service-account-k8s-dashboard.yaml
+
+# Create cluster role binding
+$ kubectl -f cluster-role-binding-k8s-dashboard.yaml
 
 # Create token
 $ kubectl -n kubernetes-dashboard create token admin-user
