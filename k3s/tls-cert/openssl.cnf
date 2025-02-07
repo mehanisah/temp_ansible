@@ -10,12 +10,12 @@ C  = MY        # Country (e.g., US, MY, SG)
 ST = Selangor  # State/Province
 L  = Bangi     # City
 O  = Sony      # Organization Name
-OU = SCM Demo  # Organizational Unit
-CN = *.scm.demo  # Common Name (Wildcard Domain)
+OU = SCM STG   # Organizational Unit
+CN = *.scm.stg  # Common Name (Wildcard Domain)
 
 [ v3_req ]
 subjectAltName = @alt_names
 
 [ alt_names ]
-DNS.1 = *.scm.demo
+DNS.1 = *.scm.stg
 
