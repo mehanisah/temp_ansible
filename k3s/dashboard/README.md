@@ -5,9 +5,11 @@ helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 $ kubectl apply -f create-namespace-k8s-dashboard.yaml
 
 # Install
+$ cd kubernetes-dashboard/
 $ helm install kubernetes-dashboard . --namespace kubernetes-dashboard -f values.yaml
 
 # Upgrade
+$ cd kubernetes-dashboard/
 $ helm upgrade kubernetes-dashboard . --namespace kubernetes-dashboard -f values.yaml
 
 # Uninstall
