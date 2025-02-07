@@ -16,5 +16,5 @@ serviceaccount/admin-user created
 clusterrolebinding.rbac.authorization.k8s.io/admin-user created
 
 # Create token
-$ kubectl -n kube-system create token admin-user
+$ kubectl -n kubernetes-dashboard create token admin-user
 
