@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    path: /srv/nfs/k3s/harbor
+    path: /srv/nfs/k3s-stg/harbor
     server: 43.74.40.116
   persistentVolumeReclaimPolicy: Retain
   storageClassName: "harbor-pv"
