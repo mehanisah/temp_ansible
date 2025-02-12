@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: monitoring-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /srv/nfs/k3s-stg/monitoring
+    server: 43.74.40.116
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "monitoring-pv"
+
