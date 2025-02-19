@@ -8,5 +8,5 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: "${PVC_STORAGE}"
+      storage: ${PVC_STORAGE}
   storageClassName: "${PVC_STORAGE_CLASS}"
