@@ -5,6 +5,7 @@ $ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/n
   --set nfs.path=/srv/nfs/k3s-stg
 
 $ kubectl get sc
+
 NAME         PROVISIONER                                     RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
 nfs-client   cluster.local/nfs-subdir-external-provisioner   Delete          Immediate    
 
