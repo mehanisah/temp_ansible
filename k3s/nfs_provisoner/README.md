@@ -4,7 +4,7 @@ Installation is done in the default namespace.
 ```
 $ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
   --set nfs.server=xx.xx.xx.xx \
-  --set nfs.path=/srv/nfs/k3s-stg
+  --set nfs.path=<NFS_PATH>
 ```
 
 ```
