@@ -9,4 +9,4 @@ spec:
   resources:
     requests:
       storage: ${PVC_STORAGE}
-  storageClassName: ${PVC_STORAGE_CLASS}
+  storageClassName: ${STORAGE_CLASS}
