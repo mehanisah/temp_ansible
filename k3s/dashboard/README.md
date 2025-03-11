@@ -3,8 +3,10 @@
 2. Create TLS secret for 'kubernetes-dashboard' namespace
 
 # Install
+```
 $ cd kubernetes-dashboard/
 $ helm install kubernetes-dashboard . --namespace kubernetes-dashboard -f values.yaml
+```
 
 # Upgrade
 $ cd kubernetes-dashboard/
