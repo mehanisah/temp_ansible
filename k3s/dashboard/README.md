@@ -1,4 +1,4 @@
-Prerequisite:
+# Prerequisite:
 1. Create 'kubernetes-dashboard' namespace
 2. Create TLS secret for 'kubernetes-dashboard' namespace
 
