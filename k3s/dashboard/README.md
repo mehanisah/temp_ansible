@@ -9,18 +9,28 @@ $ helm install kubernetes-dashboard . --namespace kubernetes-dashboard -f values
 ```
 
 # Upgrade
+```
 $ cd kubernetes-dashboard/
 $ helm upgrade kubernetes-dashboard . --namespace kubernetes-dashboard -f values.yaml
+```
 
 # Uninstall
+```
 $ helm uninstall kubernetes-dashboard --namespace kubernetes-dashboard
+```
 
 # Create service account
+```
 $ kubectl create -f service-account-k8s-dashboard.yaml
+```
 
 # Create cluster role binding
+```
 $ kubectl -f cluster-role-binding-k8s-dashboard.yaml
+```
 
 # Create token
+```
 $ kubectl -n kubernetes-dashboard create token admin-user
+```
 
