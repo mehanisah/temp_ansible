@@ -388,7 +388,7 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts:
-      - prometheus.scm.demo
+      - prometheus_old.scm.stg
     #   - domain.com/prometheus
 
     path: /
@@ -407,9 +407,9 @@ server:
     ## Secrets must be manually created in the namespace
     ##
     tls:
-      - secretName: domain-cert
+      - secretName: scm-stg-cert
         hosts:
-          - prometheus.scm.demo
+          - prometheus_old.scm.stg
 
   ## Server Deployment Strategy type
   strategy:
