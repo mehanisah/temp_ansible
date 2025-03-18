@@ -1,3 +1,9 @@
+# Prerequiste
+Nodes that will be using NFS storage needs to be install with nfs-common
+```
+sudo apt update && sudo apt install -y nfs-common
+```
+
 # Install NFS Provisioner
 
 Installation is done in the default namespace.
