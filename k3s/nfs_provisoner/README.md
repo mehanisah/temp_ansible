@@ -1,4 +1,4 @@
-# Prerequiste
+# Prerequisite
 Configure NFS Server settings, allow mount from all nodes.
 ```
 cat /etc/exports
