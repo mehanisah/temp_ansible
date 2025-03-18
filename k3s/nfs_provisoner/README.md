@@ -1,4 +1,9 @@
 # Prerequiste
+Configure NFS Server settings, allow mount from all nodes.
+```
+cat /etc/exports
+/srv/nfs/k3s-stg *(rw,sync,no_subtree_check)
+```
 Nodes that will be using NFS storage needs to be install with nfs-common
 ```
 sudo apt update && sudo apt install -y nfs-common
