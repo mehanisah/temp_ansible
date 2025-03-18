@@ -18,3 +18,8 @@ helm upgrade prometheus prometheus-community/prometheus  \
   --set server.persistentVolume.size=20Gi\
   --set alertmanager.enabled=false
 ```
+
+# Uninstall
+```
+helm uninstall prometheus -n monitoring
+```
